@@ -1,0 +1,23 @@
+{
+  "name": "redux-lightweight-persist",
+  "version": "0.1.0",
+  "description": "A lightweight library to store selected parts of the state to persistent storage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SychevSP/redux-lightweight-persist.git"
+  },
+  "keywords": [
+    "redux",
+    "storage"
+  ],
+  "author": "Sergey Sychev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SychevSP/redux-lightweight-persist/issues"
+  },
+  "homepage": "https://github.com/SychevSP/redux-lightweight-persist#readme"
+}
