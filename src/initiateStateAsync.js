@@ -6,6 +6,7 @@ export function initiateStateAsync (defaultState) {
         throw (`a loader from persistent storage is not provided
         Please call 'configLib' from this library before calling this function`);
     }
+    //check that the configuration is set
     if (!persistConfig) {
         throw (`a list of entries to persist is not provided
         Please call 'configLib' from this library before calling this function`);
@@ -14,10 +15,13 @@ export function initiateStateAsync (defaultState) {
     return retrieveEntries (defaultState, persistConfig);
 }
 
+//this function checks persistConfig object to find which keys to retrieve
+//if there is no data in persistent storage saved for the key, the function will initiate the key with default value provided in the default state
 async function retrieveEntries (defaultState, persistConfig, prevPersistentKey) {
 
     const entriesArray = await Promise.all(Object.keys(defaultState).map(key => {
 
+            //add current key to the key string
         const persistentKey = prevPersistentKey ? prevPersistentKey + '/' + key : key;
         const defaultStateValue = defaultState[key];
 
@@ -29,7 +33,8 @@ async function retrieveEntries (defaultState, persistConfig, prevPersistentKey) 
                 persistentKey
             ).then(value => ({[key]: value}));
         }
-        //if the value is true or if the value is missing but the other key is true
+        //if the key is explicitly set to true in persistConfig object
+        // or if the special key $other is set to true
         //retrieve item from persistent storage
         if(persistConfig[key] === true || (persistConfig[key] === undefined && persistConfig.$other)) {
             return setInitialStateValue(persistentKey, defaultStateValue).then(value => ({[key]: value}));
@@ -46,7 +51,6 @@ async function retrieveEntries (defaultState, persistConfig, prevPersistentKey) 
 
 
 async function setInitialStateValue (persistentKey, defaultStateValue) {
-    console.log('begin function for key: ', persistentKey);
     let value = null;
     try {
         value = await load(persistentKey);
@@ -55,7 +59,6 @@ async function setInitialStateValue (persistentKey, defaultStateValue) {
         console.log(`Error loading key ${persistentKey}`);
         console.log(error);
     }
-    console.log('await complete for key: ', persistentKey);
     if (value === null) {
         return defaultStateValue;
     } else {

@@ -2,6 +2,7 @@ export let save;
 export let load;
 export let persistConfig;
 
+//this function sets up configuration for the library
 export function  configLib (configObj: {
     asyncSave:(key: string, value: any) => Promise,
     asyncLoad: (key: string) => Promise,
@@ -12,12 +13,3 @@ export function  configLib (configObj: {
     persistConfig = configObj.persistConfig;
 }
 
-/*
- export function initiateSave (asyncSave: (key: string, value: any) => Promise) {
- save = asyncSave;
- }
-
- export function initiateLoad (asyncLoad: (key: string) => Promise) {
- load = asyncLoad;
- }
- */

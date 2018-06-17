@@ -6,6 +6,7 @@ export function createMiddleWare () {
         throw (`a function to save to persistent storage is not provided
         Please call 'initiateSave' from this library before applying the middleware`);
     }
+    //check that the configuration is set
     if (!persistConfig) {
         throw (`a list of entries to persist is not provided
         Please call 'configLib' from this library before calling this function`);
@@ -14,7 +15,7 @@ export function createMiddleWare () {
 }
 
 //this middleware saves to persistent storage only those parts of the state that were changed
-//support for recursive check of state properties will be added
+//the middelware uses persistConfig object to find out which parts to change
 const middleware = ({ dispatch, getState }) => {
 
     return next => action => {
@@ -30,8 +31,6 @@ const middleware = ({ dispatch, getState }) => {
 
         //save state only if there were any changes
         //the state is immutable and any change to the state leads to creation of a new object
-        console.log('prevState !== newState');
-        console.log(prevState !== newState);
         if (prevState !== newState) {
             saveEntries(prevState,
                 newState,
@@ -45,19 +44,19 @@ const middleware = ({ dispatch, getState }) => {
     };
 };
 
-//
+//this function is called recursivle for every level of path in persistConfig object
 function saveEntries (prevState, newState, persistConfig, prevPersistentKey) {
 
-    //in persisted entries it is either true or an object
+    //keys that are explicitly set in persistConfig
     const designatedKeys = Object.keys(newState).filter(key => Boolean(persistConfig[key]));
-    //it there is a key other and it is equal to true
+    //if the $other key in persistConfig is set to true pick all the keys that are not referenced explicitly
     const otherKeys = persistConfig.$other ?
         Object.keys(newState).filter(key => persistConfig[key] === undefined) :
         [];
     //list of all keys that must be checked
     const keys = [...designatedKeys, ...otherKeys];
-    console.log('keys');
-    console.log(keys);
+
+    //loop through the keys
     keys.forEach(key => {
         //continue only if this branch of the state is changed
         if(prevState[key] === newState[key])  return;
@@ -76,7 +75,6 @@ function saveEntries (prevState, newState, persistConfig, prevPersistentKey) {
 
         //save item to persistent storage
         saveItem (persistentKey, newState[key])
-
 
     })
 
