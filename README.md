@@ -7,7 +7,7 @@ A lightweight library to store selected parts of the state to persistent storage
 
 First create a configuration object
 ```js
-export const testConfig = {
+export const persistConfig = {
     A: {
         Aa: true, //save
         Ab: false, //skip
@@ -27,19 +27,19 @@ export const testConfig = {
 //for entries saved in total
 ```
 
-Than initiate the library with save and load functions
+Then initiate the library with save and load functions
 ```js
 import configLib from 'redux-lightweight-persist';
 configLib ({
-    asyncSave: undefined, //do no need for this test
-    asyncLoad: mockLoad, //mock it!
-    persistConfig: testConfig,
+    asyncSave: MyAsyncSave,
+    asyncLoad: MyAsyncLoad,
+    persistConfig: persistConfig,
 });
 ```
 
-The functions must conform to protocol
+The functions must conform to protocol:
 ```js
-asyncSave:(key: string, value: any) => Promise,
+asyncSave: (key: string, value: any) => Promise,
 asyncLoad: (key: string) => Promise,
 ```
 

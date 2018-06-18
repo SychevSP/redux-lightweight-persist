@@ -15,4 +15,4 @@ export const testConfig = {
     D: 'SAVE ME', //save because $other === true
 };
 
-//for entries saved in total
+//4 entries saved in total
