@@ -17,11 +17,11 @@ export function initiateStateAsync (defaultState) {
 
 //this function checks persistConfig object to find which keys to retrieve
 //if there is no data in persistent storage saved for the key, the function will initiate the key with default value provided in the default state
-async function retrieveEntries (defaultState, persistConfig, prevPersistentKey) {
+export async function retrieveEntries (defaultState, persistConfig, prevPersistentKey) {
 
     const entriesArray = await Promise.all(Object.keys(defaultState).map(key => {
 
-            //add current key to the key string
+        //add current key to the key string
         const persistentKey = prevPersistentKey ? prevPersistentKey + '/' + key : key;
         const defaultStateValue = defaultState[key];
 

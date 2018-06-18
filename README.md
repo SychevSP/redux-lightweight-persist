@@ -1,2 +1,45 @@
-# redux-lightweight-persist
+redux-lightweight-persist
+=========================
+
 A lightweight library to store selected parts of the state to persistent storage. Nested paths are supported. Accepts any save load function that confirms to protocol
+
+## Usage
+
+First create a configuration object
+```js
+export const testConfig = {
+    A: {
+        Aa: true, //save
+        Ab: false, //skip
+        Ac: {
+            ACa: true, //save
+            ACb: false, //skip
+        },
+        $other: false,
+        Ad: 'SAVE ME NOT', //skip because $other === false
+    },
+    B: true, //save 3
+    C: false, //skip
+    $other: true,
+    D: 'SAVE ME', //save because $other === true
+};
+
+//for entries saved in total
+```
+
+Than initiate the library with save and load functions
+```js
+import configLib from 'redux-lightweight-persist';
+configLib ({
+    asyncSave: undefined, //do no need for this test
+    asyncLoad: mockLoad, //mock it!
+    persistConfig: testConfig,
+});
+```
+
+The functions must conform to protocol
+```js
+asyncSave:(key: string, value: any) => Promise,
+asyncLoad: (key: string) => Promise,
+```
+

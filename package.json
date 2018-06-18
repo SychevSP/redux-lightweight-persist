@@ -4,7 +4,7 @@
   "description": "A lightweight library to store selected parts of the state to persistent storage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/SychevSP/redux-lightweight-persist/issues"
   },
-  "homepage": "https://github.com/SychevSP/redux-lightweight-persist#readme"
+  "homepage": "https://github.com/SychevSP/redux-lightweight-persist#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "jest": "^23.1.0"
+  }
 }
