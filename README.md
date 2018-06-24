@@ -3,7 +3,7 @@ redux-lightweight-persist
 
 A lightweight library to store selected parts of the state to persistent storage.
 Nested paths are supported.
-Works with custom load/ save asynchronous functions
+Works with custom load/ save asynchronous functions.
 
 ## Usage
 
@@ -19,8 +19,8 @@ const persistConfig = {
         },
         $other: false,
     },
-    B: true, //save
-    C: false, //skip
+    B: true,
+    C: false,
     $other: true,
 };
 
@@ -50,7 +50,7 @@ const state = {
 
 Then initiate the library with save and load functions
 ```js
-import configLib from 'redux-lightweight-persist';
+import {configLib} from 'redux-lightweight-persist';
 configLib ({
     asyncSave: MyAsyncSave,
     asyncLoad: MyAsyncLoad,
@@ -63,19 +63,21 @@ The functions must conform to protocol:
 asyncSave: (key: string, value: any) => Promise,
 asyncLoad: (key: string) => Promise,
 ```
-**In asyncLoad promise should return a plain object when resolved**
-If you need to store JSON, please put JSON.stringify / JSON.parse in your asyncSave/ Load function
+**In asyncLoad promise should return a plain object when resolved.**
+If you need to store JSON, please put JSON.stringify / JSON.parse in your asyncSave/ Load function.
 
-Initiate state asynchronously with a function from this library
-Entries specified by the persistConfig object will be read into the state
-You can provide a default state as a fall back if some parts of the state are not present in persistent storage
+Initiate state asynchronously with a function from this library.
+Entries specified by the persistConfig object will be read into the state.
+You can provide a default state as a fallback if some parts of the state are not present in persistent storage.
 ```js
+import {initiateStateAsync} from 'redux-lightweight-persist';
 const initialState = await initiateStateAsync (defaultState);
 ```
 
-Apply middleware to save changes in state
-Only those parts that changed will be saved
+Apply middleware to save changes in state.  
+Only those parts that changed will be saved.
 ```js
+import {createPersistMiddleware} from 'redux-lightweight-persist';
 const persistMiddleware = createPersistMiddleware();
 const store = createStore (reducer, initialState, applyMiddleware(persistMiddleware));
 ```

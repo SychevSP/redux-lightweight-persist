@@ -44,7 +44,7 @@ const middleware = ({ dispatch, getState }) => {
     };
 };
 
-//this function is called recursivle for every level of path in persistConfig object
+//this function is called recursivly for every level of path in persistConfig object
 function saveEntries (prevState, newState, persistConfig, prevPersistentKey) {
 
     //keys that are explicitly set in persistConfig
