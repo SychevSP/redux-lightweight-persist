@@ -4,7 +4,8 @@
   "description": "A lightweight library to store selected parts of the state to persistent storage",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,9 @@
   },
   "keywords": [
     "redux",
-    "storage"
+    "storage",
+    "persistent",
+    "middleware"
   ],
   "author": "Sergey Sychev",
   "license": "MIT",
@@ -22,9 +25,10 @@
   "homepage": "https://github.com/SychevSP/redux-lightweight-persist#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
-    "jest": "^23.1.0"
+    "jest": "^23.1.0",
+    "redux": "^4.0.0",
+    "webpack": "^4.12.1",
+    "webpack-cli": "^3.0.8"
   }
 }

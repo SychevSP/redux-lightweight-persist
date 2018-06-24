@@ -45,7 +45,7 @@ const middleware = ({ dispatch, getState }) => {
 };
 
 //this function is called recursivle for every level of path in persistConfig object
-export function saveEntries (prevState, newState, persistConfig, prevPersistentKey) {
+function saveEntries (prevState, newState, persistConfig, prevPersistentKey) {
 
     //keys that are explicitly set in persistConfig
     const designatedKeys = Object.keys(newState).filter(key => Boolean(persistConfig[key]));
